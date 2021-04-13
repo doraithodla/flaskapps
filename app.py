@@ -1,5 +1,6 @@
 from flask import Flask
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -7,7 +8,7 @@ API_URL = r'https://financialmodelingprep.com/api/v3/stock/real-time-price/{tick
 
 def fetch_price(ticker):
     data = requests.get(API_URL.format(ticker= ticker.upper()),
-        params={'apikey': '0310d723950f494c5a8ab7a2386f5eac'}).json()
+        params={'apikey': os.environ['api-key']}).json()
     return data["price"]
 
 @app.route(r'/stock/<ticker>')
